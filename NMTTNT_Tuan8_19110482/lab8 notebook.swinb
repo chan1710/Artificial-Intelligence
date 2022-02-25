@@ -1,0 +1,54 @@
+<div class="notebook">
+
+<div class="nb-cell markdown" name="md1">
+# Môn: Nhập môn Trí tuệ Nhân tạo
+* Sinh viên: Huỳnh Thị Bảo Trân
+* MSSV: 19110482
+* Bài tập: Thực hành 8
+</div>
+
+<div class="nb-cell markdown" name="md3">
+**Yêu cầu bài toán:**
+* Nếu bình Y rỗng thì đổ đầy nước bình Y.
+* Nếu bình X đầy thì đổ hết nước ra.
+* Nếu bình X chưa đầy và bình Y có nước thì đổ nước từ bình Y sang bình X cho đến khi bình Y hết nước hoặc bình X đầy.
+* Lặp lại cho đến khi bình X hoặc bình Y có Z.
+</div>
+
+<div class="nb-cell markdown" name="md2">
+**Xây dựng cơ sở tri thức:**      
+* Kiểm tra bình Y có rỗng hay chưa, nếu chưa thì đổ đầy bình Y.
+* Sau đó, đổ đầy bình X nếu bình X không đầy.
+* Đổ hết nước trong bình X ra.
+* Đổ phần còn lại trong bình Y sang bình X.
+* Tiếp tục múc đầy bình Y.
+* Đổ từ bình Y sang bình X.
+* Phần còn lại trong bình Y là Z.
+</div>
+
+<div class="nb-cell program" name="p1">
+binh_X(X, Vx, Xc) :- (X =:= Vx -&gt; Xc is 0; Xc is X).
+
+binh_Y(Y, Vy, Yc) :- (Y =:= 0 -&gt; Yc is Vy; Yc is Y).
+
+dong_nuoc(Y, X, Vx, K, Xc, Yc) :- (Y =\= 0, X &lt; Vx
+                                  -&gt; K is min(Y, Vx - X), Xc is X + K, Yc is Y - K).
+</div>
+
+<div class="nb-cell program" name="p2">
+thuc_hien(Vy, Vx, Y, X, Yc, Xc, K) :- 
+    binh_Y(Y, Vy, Yc); 
+    binh_X(X, Vx, Xc); 
+    dong_nuoc(Y, X, Vx, K, Xc, Yc).
+</div>
+
+<div class="nb-cell program" name="p3">
+vong_lap(Vy, Vx, Y, X, Z, Yc, Xc, K) :- 
+    (X \= Z, Y \= Z), 
+    binh_Y(Y, Vy, Yc); 
+    binh_X(X, Vx, Xc);
+    dong_nuoc(Y, X, Vx, K, Xc, Yc), 
+    vong_lap(Vy, Vx, Y, X, Z, Yc, Xc, K).
+</div>
+
+</div>
